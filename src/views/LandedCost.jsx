@@ -71,18 +71,18 @@ const goodsType = [
 ];
 
 const units = [
-    {
-        value: 0.4535,
-        label: 'lbs',
-    },
-    {
-        value: 1,
-        label: 'kg',
-    },
-    {
-        value: 1000,
-        label: 'Mt.',
-    },
+  {
+    value: 0.4535,
+    label: 'lbs',
+  },
+  {
+    value: 1,
+    label: 'kg',
+  },
+  {
+    value: 1000,
+    label: 'Mt.',
+  },
 ];
 
 class LandedCost extends React.Component {
@@ -127,15 +127,15 @@ class LandedCost extends React.Component {
     });
   };
 
-    handleUnits = event => {
-        this.setState({
-            units: event.target.value,
-        });
-    };
+  handleUnits = event => {
+    this.setState({
+      units: event.target.value,
+    });
+  };
 
-    onClickResult = () => {
-        this.setState({result: true});
-    };
+  onClickResult = () => {
+    this.setState({result: true});
+  };
 
   commodityPrice(){
     return this.state.price * this.state.number
@@ -143,58 +143,65 @@ class LandedCost extends React.Component {
 
   transportToPort() {
     const vehicles = [
-        {
-            "capacity": 1360,
-            "pricePerKm": 20,
-            "weightLimit": 2800,
-            "name": "truck",
-            "vehicleType": "non perishable"
-        },
-        {
-            "capacity": 800,
-            "pricePerKm": 12,
-            "weightLimit": 1800,
-            "name": "lorry",
-            "vehicleType": "non perishable"
-        },
-        {
-            "capacity": 500,
-            "pricePerKm": 6.2,
-            "weightLimit": 980,
-            "name": "van",
-            "vehicleType": "non perishable"
-        },
-        {
-            "capacity": 1360,
-            "pricePerKm": 25,
-            "weightLimit": 2500,
-            "name": "truck",
-            "vehicleType": "perishable"
-        },
-        {
-            "capacity": 900,
-            "pricePerKm": 15,
-            "weightLimit": 1600,
-            "name": "lorry",
-            "vehicleType": "perishable"
-        },
-        {
-            "capacity": 560,
-            "pricePerKm": 15,
-            "weightLimit": 920,
-            "name": "van",
-            "vehicleType": "perishable"
-        }
+      {
+        "capacity": 1360,
+        "pricePerKm": 20,
+        "weightLimit": 2800,
+        "name": "truck",
+        "vehicleType": "non perishable"
+      },
+      {
+        "capacity": 800,
+        "pricePerKm": 12,
+        "weightLimit": 1800,
+        "name": "lorry",
+        "vehicleType": "non perishable"
+      },
+      {
+        "capacity": 500,
+        "pricePerKm": 6.2,
+        "weightLimit": 980,
+        "name": "van",
+        "vehicleType": "non perishable"
+      },
+      {
+        "capacity": 1360,
+        "pricePerKm": 25,
+        "weightLimit": 2500,
+        "name": "truck",
+        "vehicleType": "perishable"
+      },
+      {
+        "capacity": 900,
+        "pricePerKm": 15,
+        "weightLimit": 1600,
+        "name": "lorry",
+        "vehicleType": "perishable"
+      },
+      {
+        "capacity": 560,
+        "pricePerKm": 15,
+        "weightLimit": 920,
+        "name": "van",
+        "vehicleType": "perishable"
+      }
     ];
     const {goodsType, distancePort, weight} = this.state;
+
+    //sort vehicle size in ascending order
     const tripSort = vehicles.sort(function(a, b) {
       return a.capacity - b.capacity;
     });
+
     const largestTruckSize = tripSort.slice(-1)[0];
+
+    // find vehicle that matches volume of item
     let tripCost = tripSort.find(value => {
       return weight < value.weightLimit &&  value.type === goodsType
     });
+
     const requiredTrips = (Math.round((this.state.weight/largestTruckSize.weightLimit) * 100)/100);
+
     const largeTrips = Math.floor(requiredTrips);
     const largeTripCost = largeTrips * largestTruckSize.pricePerKm * distancePort;
     const weightFraction = (requiredTrips % 1) * largestTruckSize.weightLimit;
@@ -243,50 +250,50 @@ class LandedCost extends React.Component {
   }
 
   transportToBuyer(){
-      const vehicles = [
-          {
-              "capacity": 1360,
-              "pricePerKm": 17,
-              "weightLimit": 3150,
-              "name": "truck",
-              "vehicleType": "non perishable"
-          },
-          {
-              "capacity": 850,
-              "pricePerKm": 10,
-              "weightLimit": 2000,
-              "name": "lorry",
-              "vehicleType": "non perishable"
-          },
-          {
-              "capacity": 500,
-              "pricePerKm": 6,
-              "weightLimit": 1400,
-              "name": "van",
-              "vehicleType": "non perishable"
-          },
-          {
-              "capacity": 1360,
-              "pricePerKm": 22,
-              "weightLimit": 2300,
-              "name": "truck",
-              "vehicleType": "perishable"
-          },
-          {
-              "capacity": 920,
-              "pricePerKm": 15,
-              "weightLimit": 1550,
-              "name": "lorry",
-              "vehicleType": "perishable"
-          },
-          {
-              "capacity": 530,
-              "pricePerKm": 12.5,
-              "weightLimit": 850,
-              "name": "van",
-              "vehicleType": "perishable"
-          }
-      ];
+    const vehicles = [
+      {
+        "capacity": 1360,
+        "pricePerKm": 17,
+        "weightLimit": 3150,
+        "name": "truck",
+        "vehicleType": "non perishable"
+      },
+      {
+        "capacity": 850,
+        "pricePerKm": 10,
+        "weightLimit": 2000,
+        "name": "lorry",
+        "vehicleType": "non perishable"
+      },
+      {
+        "capacity": 500,
+        "pricePerKm": 6,
+        "weightLimit": 1400,
+        "name": "van",
+        "vehicleType": "non perishable"
+      },
+      {
+        "capacity": 1360,
+        "pricePerKm": 22,
+        "weightLimit": 2300,
+        "name": "truck",
+        "vehicleType": "perishable"
+      },
+      {
+        "capacity": 920,
+        "pricePerKm": 15,
+        "weightLimit": 1550,
+        "name": "lorry",
+        "vehicleType": "perishable"
+      },
+      {
+        "capacity": 530,
+        "pricePerKm": 12.5,
+        "weightLimit": 850,
+        "name": "van",
+        "vehicleType": "perishable"
+      }
+    ];
 
     const tripSort = vehicles.sort(function(a, b) {
       return a.capacity - b.capacity;
@@ -327,8 +334,8 @@ class LandedCost extends React.Component {
       <div>
         <form className={classes.container} noValidate autoComplete="off">
           <Grid item xs={12}>
-              <h2 align="center">JetStream Landed Cost calculator</h2>
-              <br/>
+            <h2 align="center">JetStream Landed Cost calculator</h2>
+            <br/>
             <TextField
               id="outlined-number"
               label="Number of items"
@@ -427,19 +434,19 @@ class LandedCost extends React.Component {
               ))}
             </TextField>
 
-              <TextField
-                  id="outlined-number"
-                  label="Distance to Buyer"
-                  value={this.state.distanceBuyer}
-                  onChange={this.handleChange('distanceBuyer')}
-                  type="number"
-                  className={classes.textField}
-                  InputLabelProps={{
-                      shrink: true,
-                  }}
-                  margin="normal"
-                  variant="outlined"
-              />
+            <TextField
+              id="outlined-number"
+              label="Distance to Buyer"
+              value={this.state.distanceBuyer}
+              onChange={this.handleChange('distanceBuyer')}
+              type="number"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              margin="normal"
+              variant="outlined"
+            />
 
             <TextField
               id="outlined-select-destination"
@@ -464,33 +471,33 @@ class LandedCost extends React.Component {
               ))}
             </TextField>
 
-              <TextField
-                  id="outlined-select-destination"
-                  select
-                  label="Units of Measurement"
-                  className={classes.textField}
-                  value={this.state.units}
-                  onChange={this.handleUnits}
-                  SelectProps={{
-                      MenuProps: {
-                          className: classes.menu,
-                      },
-                  }}
-                  helperText="Select a unit of weight"
-                  margin="normal"
-                  variant="outlined"
-              >
-                  {units.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                      </MenuItem>
-                  ))}
-              </TextField>
+            <TextField
+              id="outlined-select-destination"
+              select
+              label="Units of Measurement"
+              className={classes.textField}
+              value={this.state.units}
+              onChange={this.handleUnits}
+              SelectProps={{
+                MenuProps: {
+                  className: classes.menu,
+                },
+              }}
+              helperText="Select a unit of weight"
+              margin="normal"
+              variant="outlined"
+            >
+              {units.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
         </form>
         <div>
-            <p>{this.state.result ? this.landedCost() : null}</p>
-            <br/>
+          <p>{this.state.result ? this.landedCost() : null}</p>
+          <br/>
           <button onClick={this.onClickResult}>Landed Cost</button>
         </div>
       </div>
